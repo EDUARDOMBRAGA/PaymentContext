@@ -1,2 +1,3 @@
 # PaymentContext
-Modelando Domínios Ricos - balta.io
+
+- Curso: Modelando Domínios Ricos by @balta.io
