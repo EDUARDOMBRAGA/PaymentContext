@@ -7,7 +7,7 @@ namespace PaymentContext.Domain.Entities
 {
   public abstract class Payment : Entity
   {
-    public Payment(DateTime paiDate, DateTime expireDate, object decmal, decimal total, decimal totalPaid, string payer, Document document, Address address, Email email)
+    public Payment(DateTime paiDate, DateTime expireDate, decimal total, decimal totalPaid, string payer, Document document, Address address, Email email)
     {
       Number = Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10).ToUpper();
       PaiDate = paiDate;
@@ -21,7 +21,7 @@ namespace PaymentContext.Domain.Entities
 
       AddNotifications(new Contract()
       .Requires()
-      .IsGreaterThan(0, Total, "Payment.Total", "O total não pode ser zeo")
+      .IsLowerOrEqualsThan(0, Total, "Payment.Total", "O total não pode ser zero")
       .IsGreaterOrEqualsThan(Total, TotalPaid, "Payment.TotalPaid", "O valor pago é menor que o valor do pagamento")
       );
     }
