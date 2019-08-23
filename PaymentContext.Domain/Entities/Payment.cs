@@ -7,10 +7,10 @@ namespace PaymentContext.Domain.Entities
 {
   public abstract class Payment : Entity
   {
-    public Payment(DateTime paiDate, DateTime expireDate, decimal total, decimal totalPaid, string payer, Document document, Address address, Email email)
+    public Payment(DateTime paidDate, DateTime expireDate, decimal total, decimal totalPaid, string payer, Document document, Address address, Email email)
     {
       Number = Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10).ToUpper();
-      PaiDate = paiDate;
+      PaidDate = paidDate;
       ExpireDate = expireDate;
       Total = total;
       TotalPaid = totalPaid;
@@ -20,14 +20,14 @@ namespace PaymentContext.Domain.Entities
       Email = email;
 
       AddNotifications(new Contract()
-      .Requires()
-      .IsLowerOrEqualsThan(0, Total, "Payment.Total", "O total não pode ser zero")
-      .IsGreaterOrEqualsThan(Total, TotalPaid, "Payment.TotalPaid", "O valor pago é menor que o valor do pagamento")
+          .Requires()
+          .IsLowerOrEqualsThan(0, Total, "Payment.Total", "O total não pode ser zero")
+          .IsGreaterOrEqualsThan(Total, TotalPaid, "Payment.TotalPaid", "O valor pago é menor que o valor do pagamento")
       );
     }
 
     public string Number { get; private set; }
-    public DateTime PaiDate { get; private set; }
+    public DateTime PaidDate { get; private set; }
     public DateTime ExpireDate { get; private set; }
     public decimal Total { get; private set; }
     public decimal TotalPaid { get; private set; }
